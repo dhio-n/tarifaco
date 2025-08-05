@@ -28,9 +28,12 @@ if not os.path.exists(CSV_PATH):
 else:
     df = pd.read_csv(CSV_PATH)
     search_term = st.text_input("🔍 Pesquisar na tabela:")
-    if search_term:
-        filtered_df = df[df.apply(lambda row: row.astype(str).str.contains(search_term, case=False, na=False).any(), axis=1)]
-        st.write(f"🔎 {len(filtered_df)} resultado(s) para: **{search_term}**")
-        st.dataframe(filtered_df, use_container_width=True)
-    else:
-        st.dataframe(df, use_container_width=True)
+
+if search_term:
+    # Converte todas as colunas para string e verifica se algum valor contém o termo (case-insensitive)
+    filtered_df = df[df.apply(lambda row: row.astype(str).str.contains(search_term, case=False, na=False).any(), axis=1)]
+
+    st.write(f"🔎 {len(filtered_df)} resultado(s) para: **{search_term}**")
+    st.dataframe(filtered_df, use_container_width=True)
+else:
+    st.dataframe(df, use_container_width=True)
