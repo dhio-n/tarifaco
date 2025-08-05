@@ -2,7 +2,7 @@
 
 🔍 Aplicação interativa para consultar **produtos brasileiros isentos de tarifa extra nos EUA**, baseada em dados oficiais da **Casa Branca**.
 
-![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)
+![Streamlit App]([https://static.streamlit.io/badges/streamlit_badge_black_white.svg](https://tarifaco.streamlit.app/)
 
 ## 📌 Sobre o projeto
 
