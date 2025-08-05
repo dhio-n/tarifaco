@@ -28,8 +28,6 @@ if not os.path.exists(CSV_PATH):
 else:
     df = pd.read_csv(CSV_PATH)
 
-    # Campos de busca para cada coluna
-    st.markdown("### Filtre a tabela usando um ou mais campos:")
     htsus_search = st.text_input("Pesquisar HTSUS:")
     aircraft_search = st.text_input("Pesquisar Articles of Civil Aircraft only:")
     description_search = st.text_input("Pesquisar Description:")
