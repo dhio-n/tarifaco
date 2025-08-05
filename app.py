@@ -28,14 +28,26 @@ if not os.path.exists(CSV_PATH):
 else:
     df = pd.read_csv(CSV_PATH)
 
-    # Criar coluna para pesquisa concatenando todas as colunas
-    df['search_field'] = df.astype(str).agg(' '.join, axis=1)
-    
-    search_term = st.text_input("🔍 Pesquisar na tabela:")
+    # Campos de busca para cada coluna
+    st.markdown("### Filtre a tabela usando um ou mais campos:")
+    htsus_search = st.text_input("Pesquisar HTSUS:")
+    aircraft_search = st.text_input("Pesquisar Articles of Civil Aircraft only:")
+    description_search = st.text_input("Pesquisar Description:")
+    descricao_search = st.text_input("Pesquisar Descrição:")
 
-    if search_term:
-        filtered_df = df[df['search_field'].str.contains(search_term, case=False, na=False)]
-        st.write(f"🔎 {len(filtered_df)} resultado(s) para: **{search_term}**")
-        st.dataframe(filtered_df.drop(columns=['search_field']), use_container_width=True)
-    else:
-        st.dataframe(df.drop(columns=['search_field']), use_container_width=True)
+    filtered_df = df.copy()
+
+    if htsus_search:
+        filtered_df = filtered_df[filtered_df['HTSUS'].astype(str).str.contains(htsus_search, case=False, na=False)]
+
+    if aircraft_search:
+        filtered_df = filtered_df[filtered_df['Articles of Civil Aircraft only'].astype(str).str.contains(aircraft_search, case=False, na=False)]
+
+    if description_search:
+        filtered_df = filtered_df[filtered_df['Description'].astype(str).str.contains(description_search, case=False, na=False)]
+
+    if descricao_search:
+        filtered_df = filtered_df[filtered_df['Descrição'].astype(str).str.contains(descricao_search, case=False, na=False)]
+
+    st.write(f"🔎 {len(filtered_df)} resultado(s) encontrados")
+    st.dataframe(filtered_df, use_container_width=True)
